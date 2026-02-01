@@ -5,18 +5,16 @@ import path from "path";
 
 const app = express();
 
-// Middleware FIRST
 app.use(cors());
 app.use(express.json());
-app.use(express.static("../public"));  // ← Changed path
+app.use(express.static(path.join(process.cwd(), "public")));  // ✅ FIXED
 
-// Helper: load projects
 function loadProjects() {
-  const raw = fs.readFileSync("./../public/projects.json", "utf-8");  // ← Changed path
+  const projectsPath = path.join(process.cwd(), "public/projects.json");
+  const raw = fs.readFileSync(projectsPath, "utf-8");
   return JSON.parse(raw);
 }
 
-// API ROUTE FIRST (before catch-all)
 app.get("/api/:slug", (req, res) => {
   const { slug } = req.params;
   const projects = loadProjects();
@@ -28,10 +26,8 @@ app.get("/api/:slug", (req, res) => {
   res.json(project);
 });
 
-// CATCH-ALL ROUTE LAST (SPA routing)
 app.get("*", (req, res) => {
-  res.sendFile(path.resolve("../public/index.html"));  // ← Changed path
+  res.sendFile(path.join(process.cwd(), "public/index.html"));
 });
 
-// REQUIRED FOR VERCEL: Export app
-module.exports = app;  // ← ADD THIS LINE
+module.exports = app;  // ✅ REQUIRED
