@@ -76,6 +76,7 @@
         // Load project data
         const slug = window.location.pathname.split('/').pop() || 'movement-system';
         fetch(`/api/${slug}`)
+
             .then(r => r.json())
             .then(data => {
                 document.getElementById('title').textContent = data.title;

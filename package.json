@@ -1,8 +1,7 @@
 {
-  "_comment": "this is package.json file",
+  "_comment": "system-hub/package.json",
   "name": "roblox-systems-hub",
   "version": "1.0.0",
-  "main": "index.js",
   "type": "module",
   "scripts": {
     "start": "node api/index.js"
