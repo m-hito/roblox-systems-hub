@@ -5,6 +5,11 @@ import path from "path";
 
 const app = express();
 
+app.use((req, res, next) => {
+  console.log("API HIT:", req.method, req.url);
+  next();
+});
+
 app.use(cors());
 app.use(express.json());
 
