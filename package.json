@@ -1,0 +1,14 @@
+{
+  "_comment": "this is package.json file",
+  "name": "roblox-systems-hub",
+  "version": "1.0.0",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "cors": "^2.8.5"
+  }
+}

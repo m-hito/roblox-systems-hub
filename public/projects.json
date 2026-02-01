@@ -1,0 +1,26 @@
+
+
+[
+  {
+    "_comment" : "this is public/projects.json file",
+    "slug": "movement-system",
+    "title": "Advanced Roblox Movement System v2.1", 
+    "description": "Smooth wall-running, dash, slide, bunny hop. 120ms input delay, server authoritative movement.",
+    "repoUrl": "https://m-hito.github.io/adUnlockerGetCode/",
+    "devNotes": "https://github.com/m-hito/BrawlDevNotes#movement",
+    "thumbnail": "https://via.placeholder.com/600x300/8B00FF/FFFFFF?text=Movement+System",
+    "waitTime": 10,
+    "related": ["npc-factory", "combat-system"]
+  },
+
+    {
+    "slug": "Npc-factory",
+    "title": "Advanced Roblox NpcFactory v2.1", 
+    "description": "Spawn npcs and control their behavior",
+    "repoUrl": "https://m-hito.github.io/adUnlockerGetCode/",
+    "devNotes": "https://github.com/m-hito/BrawlDevNotes#movement",
+    "thumbnail": "https://via.placeholder.com/600x300/8B00FF/FFFFFF?text=Movement+System",
+    "waitTime": 15,
+    "related": ["movement-system", "combat-system"]
+  }
+]

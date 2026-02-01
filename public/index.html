@@ -1,0 +1,107 @@
+<!-- public/index.html -->
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roblox Systems Hub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = { darkMode: 'class' }
+    </script>
+    <script defer data-domain="yourdomain.io" src="https://plausible.io/js/script.js"></script>
+</head>
+<body class="bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 min-h-screen text-white">
+    
+    <!-- Hero Section -->
+    <div id="hero" class="max-w-4xl mx-auto p-8">
+        <div id="thumbnail" class="w-full h-64 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl mb-8 flex items-center justify-center">
+            Loading demo...
+        </div>
+        
+        <h1 id="title" class="text-4xl md:text-6xl font-bold mb-4 bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+            Loading...
+        </h1>
+        
+        <p id="description" class="text-xl md:text-2xl mb-8 text-slate-300 leading-relaxed">
+            Loading project...
+        </p>
+        
+        <div id="dev-notes" class="mb-12 p-6 bg-slate-800/50 rounded-xl border border-slate-700">
+            <h3 class="text-2xl font-bold mb-4">📝 Developer Notes</h3>
+            <a id="notes-link" href="#" class="text-purple-400 hover:text-purple-300 font-semibold">View full dev notes →</a>
+        </div>
+    </div>
+
+    <!-- Timer + CTAs -->
+    <div id="timer-section" class="max-w-4xl mx-auto p-8">
+        <div class="w-full bg-slate-800 rounded-xl p-8 mb-8">
+            <div class="flex items-center justify-between mb-4">
+                <span class="text-2xl font-bold">⏳ Preparing download...</span>
+                <span id="timer" class="text-3xl font-mono">15</span>
+            </div>
+            <div class="w-full bg-slate-700 rounded-full h-3">
+                <div id="timer-bar" class="bg-gradient-to-r from-purple-500 to-pink-500 h-3 rounded-full transition-all duration-300" style="width: 100%"></div>
+            </div>
+        </div>
+
+        <!-- CTA Buttons -->
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4 mb-12">
+            <a id="github-btn" href="#" class="group bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 p-6 rounded-xl text-center transition-all duration-300 transform hover:-translate-y-1">
+                <div class="text-3xl mb-2">⭐</div>
+                <div class="font-bold text-xl group-hover:underline">GitHub Repo</div>
+            </a>
+            
+            <a id="demo-btn" href="#" class="group bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 p-6 rounded-xl text-center transition-all duration-300 transform hover:-translate-y-1">
+                <div class="text-3xl mb-2">🎮</div>
+                <div class="font-bold text-xl group-hover:underline">Live Demo</div>
+            </a>
+            
+            <a id="other-btn" href="#" class="group bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 p-6 rounded-xl text-center transition-all duration-300 transform hover:-translate-y-1">
+                <div class="text-3xl mb-2">🔗</div>
+                <div class="font-bold text-xl group-hover:underline">Other Systems</div>
+            </a>
+        </div>
+    </div>
+
+    <!-- Ad Slot -->
+    <div class="max-w-4xl mx-auto p-8 text-center">
+        <div id="ad-slot" class="bg-slate-800/50 p-8 rounded-xl border-2 border-dashed border-slate-600">
+            <div class="text-slate-500">Advertisement Space</div>
+            <!-- AdMaven/AdSense goes here -->
+        </div>
+    </div>
+
+    <script>
+        // Load project data
+        const slug = window.location.pathname.split('/').pop() || 'movement-system';
+        fetch(`/api/${slug}`)
+            .then(r => r.json())
+            .then(data => {
+                document.getElementById('title').textContent = data.title;
+                document.getElementById('description').textContent = data.description;
+                document.getElementById('thumbnail').style.backgroundImage = `url(${data.thumbnail})`;
+                document.getElementById('thumbnail').innerHTML = '';
+                document.getElementById('notes-link').href = data.devNotes;
+                document.getElementById('github-btn').href = data.repoUrl;
+                
+                // Timer
+                let timeLeft = data.waitTime;
+                const timer = document.getElementById('timer');
+                const bar = document.getElementById('timer-bar');
+                
+                const interval = setInterval(() => {
+                    timeLeft--;
+                    timer.textContent = timeLeft;
+                    bar.style.width = `${(timeLeft/data.waitTime)*100}%`;
+                    
+                    if (timeLeft <= 0) {
+                        clearInterval(interval);
+                        document.getElementById('timer-section').innerHTML = 
+                            '<div class="text-center p-12"><h2 class="text-4xl font-bold mb-4">✅ Ready!</h2><p class="text-xl text-slate-400">Click any button above</p></div>';
+                    }
+                }, 1000);
+            });
+    </script>
+</body>
+</html>
