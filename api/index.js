@@ -1,3 +1,4 @@
+// api/index.js
 import express from "express";
 import cors from "cors";
 import fs from "fs";
@@ -7,7 +8,7 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
-app.use(express.static(path.join(process.cwd(), "public")));  // ✅ FIXED
+app.use(express.static(path.join(process.cwd(), "public")));
 
 function loadProjects() {
   const projectsPath = path.join(process.cwd(), "public/projects.json");
@@ -30,4 +31,4 @@ app.get("*", (req, res) => {
   res.sendFile(path.join(process.cwd(), "public/index.html"));
 });
 
-module.exports = app;  // ✅ REQUIRED
+module.exports = app;
